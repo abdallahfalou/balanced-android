@@ -32,10 +32,12 @@ public class Customer {
         // TODO validate email, SSN, dob, etc.
         boolean isValid = true;
         
+        // At least one optional field is given
         if (optionalFields.size() == 0) {
             errors.add("Minimum one field required");
         } 
         
+        // DOB is valid
         if (optionalFields.containsKey(OptionalFieldKeyDob)) {
             String dob = optionalFields.get(OptionalFieldKeyDob);
             
@@ -47,6 +49,16 @@ public class Customer {
                     errors.add("DOB month invalid");
             }
             
+        }
+        
+        // Email is valid
+        if (optionalFields.containsKey(OptionalFieldKeyEmail)) {
+            String email = optionalFields.get(OptionalFieldKeyEmail);
+            Pattern VALID_EMAIL_ADDRESS_REGEX = 
+                    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            
+            if (!VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()) 
+                errors.add("Invalid email address");
         }
         
         if (!errors.isEmpty()) {

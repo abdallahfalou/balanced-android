@@ -15,7 +15,43 @@ public class CustomerTest extends TestCase {
         assertFalse(customer.getErrors().isEmpty());
         assertTrue(customer.getErrors().contains("Minimum one field required"));
     }
-    // TODO Bad email, SSN, 
+    // TODO Bad SSN 
+    
+    public void testIsValidWithInvalidEmail() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        String[] email = {  "someone.com",
+                            "email@domain",
+                            "with/slash@domain.com"};
+        
+        for (int i = 0; i < email.length; i++) {
+            map.put(Customer.OptionalFieldKeyEmail, email[i]);
+            Customer customer = new Customer(map);
+            
+            assertFalse(customer.isValid());
+            assertFalse(customer.getErrors().isEmpty());
+            assertTrue(customer.getErrors().contains("Invalid email address"));
+        }
+    }
+    
+    public void testIsValidWithValidEmail() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        String[] email = {  "someone@email.com",
+                            "another@another.email.com",
+                            "canada@email.ca",
+                            "org@domain.org",
+                            "with_underscore@domain.com",
+                            "with.period@domain.com",
+                            "with-dash@domain.com",
+                            "with+plus@domain.com"};
+        
+        for (int i = 0; i < email.length; i++) {
+            map.put(Customer.OptionalFieldKeyEmail, email[i]);
+            Customer customer = new Customer(map);
+            
+            assertTrue(customer.isValid());
+            assertTrue(customer.getErrors().isEmpty());
+        }
+    }
     
     public void testIsValidWithValidDob() {
         HashMap<String,String> map = new HashMap<String,String>();
