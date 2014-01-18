@@ -1,9 +1,9 @@
 package com.balancedpayments.android.test;
 
+import android.test.AndroidTestCase;
+
 import com.balancedpayments.android.BankAccount;
 import com.balancedpayments.android.BankAccount.AccountType;
-
-import android.test.AndroidTestCase;
 
 public class BankAccountTest extends AndroidTestCase {
    public void testValidRoutingNumbers() {

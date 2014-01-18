@@ -1,7 +1,6 @@
 package com.balancedpayments.android.test;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.balancedpayments.android.Balanced;
 import com.balancedpayments.android.BankAccount;
