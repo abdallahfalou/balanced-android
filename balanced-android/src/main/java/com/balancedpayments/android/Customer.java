@@ -61,6 +61,19 @@ public class Customer {
                 errors.add("Invalid email address");
         }
         
+        // SSN (last 4 digits) is valid
+        if (optionalFields.containsKey(OptionalFieldKeySsn)) {
+            String ssn = optionalFields.get(OptionalFieldKeySsn); 
+            if (ssn.length() != 4) errors.add("Invalid SSN (last 4 digits)");
+            else {
+                try {
+                    Integer.parseInt(ssn);
+                } catch (NumberFormatException e) {
+                    errors.add("Invalid SSN (last 4 digits)");
+                }
+            }
+        }
+        
         if (!errors.isEmpty()) {
             isValid = false;
         }

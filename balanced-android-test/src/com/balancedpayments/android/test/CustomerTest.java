@@ -15,7 +15,33 @@ public class CustomerTest extends TestCase {
         assertFalse(customer.getErrors().isEmpty());
         assertTrue(customer.getErrors().contains("Minimum one field required"));
     }
-    // TODO Bad SSN 
+    
+    public void testIsValidWithInvalidSSN() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        String[] ssn = {    "abcde",
+                            "38992",
+                            "a324"};
+        
+        for (int i = 0; i < ssn.length; i++) {
+            map.put(Customer.OptionalFieldKeySsn, ssn[i]);
+            Customer customer = new Customer(map);
+            
+            assertFalse(customer.isValid());
+            assertFalse(customer.getErrors().isEmpty());
+            assertTrue(customer.getErrors().contains("Invalid SSN (last 4 digits)"));
+        }
+    }
+    
+    public void testIsValidWithValidSSN() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        String ssn = "1234";
+        
+        map.put(Customer.OptionalFieldKeySsn, ssn);
+        Customer customer = new Customer(map);
+        
+        assertTrue(customer.isValid());
+        assertTrue(customer.getErrors().isEmpty());
+    }
     
     public void testIsValidWithInvalidEmail() {
         HashMap<String,String> map = new HashMap<String,String>();
